@@ -1,235 +1,159 @@
-// routesConfig.ts
-import React from "react";
-import LandingLayout from "../layout/LandingLayout";
-import AdminPageLayout from "../layout/AdminPageLayout";
-import AdminDashboard from "../pages/Menu/Home/Dashbaord/AdminDashboard";
+import { Outlet } from "react-router";
+
+// ---------------------------------Purchase Sales-----------------------------------------------------------
 import PurchaseInvoice from "../pages/Menu/Purchase/PurchaseInvoice/PurchaseInvoice";
-import PurchaseReturn from "../pages/Menu/Purchase/PurchaseReturn/PurchaseReturn";
 import SalesInvoice from "../pages/Menu/Sales/SalesInvoice/SalesInvoice";
 import SalesReturn from "../pages/Menu/Sales/SalesReturn/SalesReturn";
-import Warehouse from "../pages/Setting/WareHouse/Warehouse";
-import StockEntry from "../pages/Setting/StockEntry/StockEntry";
-import OpeningStock from "../pages/Setting/OpeningStock/OpeningStock";
+import PurchaseReturn from "../pages/Menu/Purchase/PurchaseReturn/PurchaseReturn";
+// ---------------------------------Purchase Sales-----------------------------------------------------------
 
-export const routesConfig = [
+// ---------------------------------Product-----------------------------------------------------------
+import ProductManagement from "../pages/Menu/Product/ProductManagement/ProductManagement";
+import ProductCompany from "../pages/Menu/Product/ProductCompany/ProductCompany";
+import ProductGroup from "../pages/Menu/Product/ProductGroup/ProductGroup";
+import UnitOfMeasurement from "../pages/Menu/Product/UnitOfMeasurement/UnitOfMeasurement";
+// ---------------------------------Product-----------------------------------------------------------
+
+// -----------------------------------Settings-------------------------------------------------------------------------
+import Warehouse from "../pages/Setting/WareHouse/Warehouse";
+import OpeningStock from "../pages/Setting/OpeningStock/OpeningStock";
+import StockEntry from "../pages/Setting/StockEntry/StockEntry";
+// -----------------------------------Settings-------------------------------------------------------------------------
+
+import AdminDashboard from "../pages/Menu/Home/Dashbaord/AdminDashboard";
+
+export const MenuRoutesConfig = [
   {
-    path: "/",
-    element: LandingLayout ,
+    path: "menu",
+    element: Outlet,
+    headChildren: [
+      {
+        path: "Home",
+        element: AdminDashboard,
+        Children: [],
+      },
+      {
+        path: "Customer/Suppliers",
+        element: Outlet,
+        children: [
+          { path: "Supplier/ Other Party", element: ProductManagement },
+          { path: "Customer", element: ProductCompany },
+          { path: "Area", element: ProductGroup },
+          { path: "Agent", element: UnitOfMeasurement },
+        ],
+      },
+      {
+        path: "Product",
+        element: Outlet,
+        children: [
+          { path: "Product Management", element: ProductManagement },
+          { path: "Product Company", element: ProductCompany },
+          { path: "Product Group", element: ProductGroup },
+          { path: "Unit of Measurement", element: UnitOfMeasurement },
+        ],
+      },
+      {
+        path: "Purchase",
+        element: Outlet,
+        children: [
+          { path: "Invoice", element: PurchaseInvoice },
+          { path: "Return", element: PurchaseReturn },
+        ],
+      },
+      {
+        path: "Sales",
+        element: Outlet,
+        children: [
+          { path: "Invoice", element: SalesInvoice },
+          { path: "Return", element: SalesReturn },
+        ],
+      },
+    ],
   },
   {
-    path: "/admin",
-    element: AdminPageLayout ,
-    children: [
+    path: "analytics",
+    element: Outlet,
+    headChildren: [
       {
-        path: "menu",
+        path: "Account",
+        element: Outlet,
         children: [
-          {
-            path: "Home",
-            element: AdminDashboard ,
-          },
-          {
-            path: "Customer/Suppliers",
-            children: [
-              {
-                path: "Supplier/ Other Party",
-                element: PurchaseInvoice ,
-              },
-              {
-                path: "Customer",
-                element: PurchaseReturn ,
-              },
-              {
-                path: "Area",
-                element: PurchaseReturn ,
-              },
-              {
-                path: "Agent",
-                element: PurchaseReturn ,
-              },
-            ],
-          },
-          {
-            path: "Product",
-            element: PurchaseReturn,
-          },
-          {
-            path: "Purchase",
-            children: [
-              {
-                path: "Invoice",
-                element: PurchaseInvoice ,
-              },
-              {
-                path: "Return",
-                element: PurchaseReturn ,
-              },
-            ],
-          },
-          {
-            path: "Sales",
-            children: [
-              {
-                path: "Invoice",
-                element: SalesInvoice ,
-              },
-              {
-                path: "Return",
-                element: SalesReturn ,
-              },
-            ],
-          },
+          { path: "Day Book", element: ProductManagement },
+          { path: "Cash Bank Book", element: ProductCompany },
+          { path: "Account Ledge", element: ProductGroup },
+          { path: "Account Ledger Summary", element: UnitOfMeasurement },
+          { path: "Trial Balance", element: ProductManagement },
+          { path: "Trial Balance Periodic", element: ProductManagement },
+          { path: "Profit and Loss", element: ProductManagement },
+          { path: "Profit ans Loss Periodic", element: ProductManagement },
+          { path: "Balance Sheet", element: ProductManagement },
+          { path: "Opening Balance", element: ProductManagement },
         ],
       },
       {
-        path: "settings",
+        path: "Documents",
+        element: Outlet,
         children: [
-          {
-            path: "Warehouse",
-            element: Warehouse ,
-          },
-          {
-            path: "Stock Entry",
-            element: StockEntry ,
-          },
-          {
-            path: "Opening Stock",
-            element: OpeningStock ,
-          },
+          { path: "Journal Voucher", element: ProductManagement },
+          { path: "Receive Payment Voucher", element: ProductManagement },
+          { path: "Debit Note", element: ProductManagement },
+          { path: "Credit Note", element: ProductManagement },
         ],
       },
       {
-        path: "analytics",
+        path: "Chart Of Accounts",
+        element: Outlet,
         children: [
-          {
-            path: "Account",
-            children: [
-              {
-                path: "Day Book",
-                element: Warehouse ,
-              },
-              {
-                path: "Cash Bank Book",
-                element: Warehouse ,
-              },
-              {
-                path: "Account Ledger",
-                element: Warehouse ,
-              },
-              {
-                path: "Account Ledger Summary",
-                element: Warehouse ,
-              },
-              {
-                path: "Trial Balance",
-                element: Warehouse ,
-              },
-              {
-                path: "Trial Balance Periodic",
-                element: Warehouse ,
-              },
-              {
-                path: "Profit and Loss",
-                element: Warehouse ,
-              },
-              {
-                path: "Profit and Loss Periodic",
-                element: Warehouse ,
-              },
-              {
-                path: "Balance Sheet",
-                element: Warehouse ,
-              },
-              {
-                path: "Opening Balance",
-                element: Warehouse ,
-              },
-            ],
-          },
-          {
-            path: "Documents",
-            children: [
-              {
-                path: "Journal Voucher",
-                element: Warehouse ,
-              },
-              {
-                path: "Receive Payment Voucher",
-                element: Warehouse ,
-              },
-              {
-                path: "Debit Note",
-                element: Warehouse ,
-              },
-              {
-                path: "Credit Note",
-                element: Warehouse ,
-              },
-            ],
-          },
-          {
-            path: "Chart Of Accounts",
-            children: [
-              {
-                path: "Account Head",
-                element: Warehouse ,
-              },
-              {
-                path: "Account Group",
-                element: Warehouse ,
-              },
-            ],
-          },
+          { path: "Account Head", element: ProductManagement },
+          { path: "Account Group", element: ProductManagement },
+        ],
+      },
+    ],
+  },
+  {
+    path: "settings",
+    element: Outlet,
+    headChildren: [
+      {
+        path: "Warehouse",
+        element: Warehouse,
+        children: [],
+      },
+      {
+        path: "Stock Entry",
+        element: StockEntry,
+        children: [],
+      },
+      {
+        path: "Opening Stock",
+        element: OpeningStock,
+        children: [],
+      },
+    ],
+  },
+  {
+    path: "others",
+    element: Outlet,
+    headChildren: [
+      {
+        path: "Utilities",
+        element: Outlet,
+        children: [
+          { path: "Customer Balance Confirmation", element: ProductManagement },
+          { path: "Import", element: ProductManagement },
+          { path: "Export Log", element: ProductManagement },
         ],
       },
       {
-        path: "others",
+        path: "Setup",
+        element: Outlet,
         children: [
-          {
-            path: "Utilities",
-            children: [
-              {
-                path: "Customer Balance Confirmation",
-                element: Warehouse ,
-              },
-              {
-                path: "Import",
-                element: Warehouse ,
-              },
-              {
-                path: "Enter Log",
-                element: Warehouse ,
-              },
-            ],
-          },
-          {
-            path: "Setup",
-            children: [
-              {
-                path: "Company Details",
-                element: Warehouse ,
-              },
-              {
-                path: "Branch",
-                element: Warehouse ,
-              },
-              {
-                path: "Bill of Materials",
-                element: Warehouse ,
-              },
-              {
-                path: "Configuration",
-                element: Warehouse ,
-              },
-              {
-                path: "Organization Management",
-                element: Warehouse ,
-              },
-              {
-                path: "Site Configuration",
-                element: Warehouse ,
-              },
-            ],
-          },
+          { path: "Company Details", element: ProductManagement },
+          { path: "Branch", element: ProductManagement },
+          { path: "Bill of Materials", element: ProductManagement },
+          { path: "Configuration", element: ProductManagement },
+          { path: "Organization Management", element: ProductManagement },
+          { path: "Site Configuration", element: ProductManagement },
         ],
       },
     ],

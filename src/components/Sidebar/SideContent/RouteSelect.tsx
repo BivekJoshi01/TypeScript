@@ -26,7 +26,7 @@ const RouteSelect: React.FC<RouteSelectProps> = ({ headTab }) => {
     setSelectedRoute(title);
     setOpenSubmenu(hasSubmenu ? (openSubmenu === title ? null : title) : null);
 
-    navigate(`/admin/${headTab}/${title}`);
+    navigate(`/${headTab}/${title}`);
   };
 
   return (
@@ -74,7 +74,7 @@ const Route = ({
 
   const handleSubmenuItemClick = (submenuTitle: string) => {
     setActiveSubmenuItem(submenuTitle);
-    navigate(`/admin/${headTab}/${title}/${submenuTitle}`);
+    navigate(`/${headTab}/${title}/${submenuTitle}`);
   };
 
   return (
