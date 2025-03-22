@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../../../components/Header/Header";
 import { FiPlus } from "react-icons/fi";
+import ProductManagementForm from "./ProductManagementForm";
 
 const ProductManagement: React.FC = () => {
+  const [openModel, setOpenModel] = useState(false);
+
   return (
     <div>
-      {/* <Header
+      <Header
         modelWidth="40%"
-        modelTitle="Product Manage"
-        buttonTitle="Add Product Management"
+        modelTitle="Product Company"
+        buttonTitle="Add Product Company"
         buttonIcon={<FiPlus />}
+        openModel={openModel}
+        setOpenModel={setOpenModel}
       >
-        <div>saxasx</div>
-      </Header> */}
-      asxasx
+        <ProductManagementForm onClose={() => setOpenModel(false)} />
+      </Header>
     </div>
   );
 };

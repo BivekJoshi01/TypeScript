@@ -4,7 +4,7 @@ import Search from './SideContent/Search'
 import SubTab from './SideContent/SubTab'
 
 const Sidebar: React.FC = () => {
-    const [headTab, setHeadTab] = useState("menu");
+    const [headTab, setHeadTab] = useState("Menu");
 
     return (
         <div>

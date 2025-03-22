@@ -17,7 +17,7 @@ import {
 
 export const getRoutesByHeadTab = ({ headTab }: { headTab: string }) => {
   switch (headTab) {
-    case "menu":
+    case "Menu":
       return [
         { Icon: FiHome, title: "Home", hasSubmenu: false, submenu: [] },
         {
@@ -61,7 +61,7 @@ export const getRoutesByHeadTab = ({ headTab }: { headTab: string }) => {
           ],
         },
       ];
-    case "settings":
+    case "Settings":
       return [
         {
           Icon: FiPackage,
@@ -82,7 +82,7 @@ export const getRoutesByHeadTab = ({ headTab }: { headTab: string }) => {
           submenu: [],
         },
       ];
-    case "analytics":
+    case "Analytics":
       return [
         {
           Icon: FiBarChart2,
@@ -122,7 +122,7 @@ export const getRoutesByHeadTab = ({ headTab }: { headTab: string }) => {
           ],
         },
       ];
-    case "others":
+    case "Others":
       return [
         {
           Icon: FiTool,

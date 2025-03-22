@@ -1,5 +1,6 @@
 import React, { useState, useEffect, ReactNode } from "react";
 import FormModel from "../Model/FormModel";
+import Breadcrumb from "./BreadCrump/BreadCrump";
 
 interface HeaderProps {
   children: ReactNode;
@@ -39,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
               Universal Stationery Suppliers
             </span>
             <span className="text-xs block text-stone-500">
-              Home -- Customer
+              <Breadcrumb />
             </span>
           </div>
           <div className="text-sm  text-green-500">

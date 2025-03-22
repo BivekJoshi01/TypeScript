@@ -9,10 +9,10 @@ interface SubTabProps {
 
 const SubTab: React.FC<SubTabProps> = ({ headTab, setHeadTab }) => {
   const tabs = [
-    { id: "menu", label: "Menu", icon: null },
-    { id: "settings", label: null, icon: <FiSettings /> },
-    { id: "analytics", label: null, icon: <FiMapPin /> },
-    { id: "others", label: null, icon: <RiFileList2Fill /> },
+    { id: "Menu", label: "Menu", icon: null },
+    { id: "Settings", label: null, icon: <FiSettings /> },
+    { id: "Analytics", label: null, icon: <FiMapPin /> },
+    { id: "Others", label: null, icon: <RiFileList2Fill /> },
   ];
 
   return (

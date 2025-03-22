@@ -24,7 +24,7 @@ import AdminDashboard from "../pages/Menu/Home/Dashbaord/AdminDashboard";
 
 export const MenuRoutesConfig = [
   {
-    path: "menu",
+    path: "Menu",
     element: Outlet,
     headChildren: [
       {
@@ -71,7 +71,7 @@ export const MenuRoutesConfig = [
     ],
   },
   {
-    path: "analytics",
+    path: "Analytics",
     element: Outlet,
     headChildren: [
       {
@@ -111,7 +111,7 @@ export const MenuRoutesConfig = [
     ],
   },
   {
-    path: "settings",
+    path: "Settings",
     element: Outlet,
     headChildren: [
       {
@@ -132,7 +132,7 @@ export const MenuRoutesConfig = [
     ],
   },
   {
-    path: "others",
+    path: "Others",
     element: Outlet,
     headChildren: [
       {
