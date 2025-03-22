@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactNode } from "react";
 import FormModel from "../Model/FormModel";
 import Breadcrumb from "./BreadCrump/BreadCrump";
-
+import GlobeImage from "../../assets/Office/GlobeImage.svg";
 interface HeaderProps {
   children: ReactNode;
   modelWidth?: string;
@@ -35,14 +35,20 @@ const Header: React.FC<HeaderProps> = ({
     <>
       <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
         <div className="flex items-center justify-between p-0.5">
-          <div>
-            <span className="text-sm font-bold block">
-              Universal Stationery Suppliers
-            </span>
-            <span className="text-xs block text-stone-500">
-              <Breadcrumb />
-            </span>
+          <div className="flex gap-2">
+            <div className="w-8">
+              <img src={GlobeImage} className="w-full h-full" />
+            </div>
+            <div>
+              <span className="text-sm font-bold block">
+                Universal Stationery Suppliers
+              </span>
+              <span className="text-xs block text-stone-500">
+                <Breadcrumb />
+              </span>
+            </div>
           </div>
+
           <div className="text-sm  text-green-500">
             {time.toLocaleTimeString()}
           </div>

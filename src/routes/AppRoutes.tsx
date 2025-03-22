@@ -1,13 +1,13 @@
 // AppRoutes.tsx
 import React from "react";
 import { HashRouter, Route, Routes } from "react-router";
-import LandingLayout from "../layout/LandingLayout";
 import AdminPageLayout from "../layout/AdminPageLayout";
 
 // ---------------------------------------------------------------------------------------
 import LoginPage from "../pages/Auth/Login/LoginPage";
 import RegisterPage from "../pages/Auth/Register/RegisterPage";
 import { MenuRoutesConfig } from "./routesConfig";
+import LandingPage from "../pages/Landing/LandingPage";
 // ------------------------------------------------------------------------------------------
 
 
@@ -17,7 +17,7 @@ const AppRoutes: React.FC = () => {
     <HashRouter>
       <Routes>
         {/* Root route */}
-        <Route path="/" element={<LandingLayout />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
