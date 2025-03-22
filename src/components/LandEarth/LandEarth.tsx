@@ -108,7 +108,7 @@ const LandEarth: React.FC = (props) => {
                 fade={true}
             />
             <mesh ref={cloudsRef} position={[0, 0, 3]}>
-                <sphereGeometry args={[1.005, 32, 32]} />
+                <sphereGeometry args={[1.009, 32, 32]} />
                 <meshPhongMaterial
                     map={cloudsMap}
                     opacity={0.4}

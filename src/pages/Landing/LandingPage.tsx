@@ -25,7 +25,7 @@ const LandingPage: React.FC = () => {
                     Balambu || Kathmandu
                 </p>
                 <button className="mt-6 px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-full shadow-lg hover:bg-blue-500 transition-all duration-300">
-                    Shop Now
+                    Scale with Us!
                 </button>
             </div>
 
