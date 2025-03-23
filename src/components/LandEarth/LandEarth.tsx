@@ -1,67 +1,6 @@
-// import React from "react";
-// import { useLoader } from "@react-three/fiber";
-// import { TextureLoader } from "three";
-// import { OrbitControls, Stars } from "@react-three/drei";
-// import * as THREE from "three";
-
-// import EarthClouds from "../../assets/Office/textures/8k_earth_clouds.jpg";
-// import EarthDayMap from "../../assets/Office/textures/8k_earth_daymap.jpg";
-// import EarthNightMap from "../../assets/Office/textures/8k_earth_nightmap.jpg";
-// import EarthNormalMap from "../../assets/Office/textures/8k_earth_normal_map.jpg";
-// import EarthSpecularMap from "../../assets/Office/textures/8k_earth_specular_map.jpg";
-
-// const LandEarth: React.FC = (props) => {
-//     const [colorMap, normalMap, specularMap, cloudsMap] = useLoader(
-//         TextureLoader,
-//         // [EarthClouds, EarthDayMap, EarthNightMap, EarthNormalMap, EarthSpecularMap]
-//         [EarthDayMap, EarthNormalMap, EarthSpecularMap, EarthClouds]
-//     );
-
-//     return (
-//         <>
-//             {/* <ambientLight intensity={1} /> */}
-//             <pointLight color="#f6f3ea" position={[2, 0, 2]} intensity={1.2} />
-//             <Stars
-//                 radius={300}
-//                 depth={60}
-//                 count={20000}
-//                 factor={7}
-//                 saturation={0}
-//                 fade={true}
-//             />
-//             <mesh>
-//                 <sphereGeometry args={[1.005, 32, 32]} />
-//                 <meshPhongMaterial
-//                     map={cloudsMap}
-//                     opacity={0.4}
-//                     depthWrite={true}
-//                     transparent={true}
-//                     side={THREE.DoubleSide}
-//                 />
-//             </mesh>
-//             <mesh>
-//                 <sphereGeometry args={[1, 32, 32]} />
-//                 <meshPhongMaterial specularMap={specularMap} />
-//                 <meshStandardMaterial map={colorMap} normalMap={normalMap} />
-//                 <OrbitControls
-//                     enableZoom={true}
-//                     enablePan={true}
-//                     zoomSpeed={0.6}
-//                     panSpeed={0.5}
-//                     rotateSpeed={0.4}
-//                 //   target={}
-//                 />
-//             </mesh>
-//         </>
-//     );
-// };
-
-// export default LandEarth;
-
-
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import * as THREE from "three";
 
 import EarthCloudsMap from "../../assets/Office/textures/8k_earth_clouds.jpg";
@@ -69,8 +8,13 @@ import EarthDayMap from "../../assets/Office/textures/8k_earth_daymap.jpg";
 import EarthNormalMap from "../../assets/Office/textures/8k_earth_normal_map.jpg";
 import EarthSpecularMap from "../../assets/Office/textures/8k_earth_specular_map.jpg";
 import { TextureLoader } from "three";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
-const LandEarth: React.FC = (props) => {
+const LandEarth: React.FC = () => {
+    const currentPage = useSelector((state: RootState) => state.navigation.currentPage);
+    console.log("Redux content:", currentPage);
+
     const [colorMap, normalMap, specularMap, cloudsMap] = useLoader(
         TextureLoader,
         [EarthDayMap, EarthNormalMap, EarthSpecularMap, EarthCloudsMap]
@@ -79,14 +23,60 @@ const LandEarth: React.FC = (props) => {
     const earthRef = useRef<THREE.Mesh>(null);
     const cloudsRef = useRef<THREE.Mesh>(null);
 
+    const [earthScale, setEarthScale] = useState(0.1);
+    const [cloudsScale, setCloudsScale] = useState(0.1);
+
+    const AboutUsPosition: [number, number, number] = [-1.6, 0, 4.3];
+    const DefaultPosition: [number, number, number] = [0, 0, 3];
+    const ProductPosition: [number, number, number] = [1.6, 0, 4.3];
+    const PartnerPosition: [number, number, number] = [0, 0, 4];
+
+    let targetPosition: [number, number, number];
+
+    switch (currentPage) {
+        case "Home":
+            targetPosition = DefaultPosition;
+            break;
+        case "About Us":
+            targetPosition = AboutUsPosition;
+            break;
+        case "Products":
+            targetPosition = ProductPosition;
+            break;
+        case "Partners":
+            targetPosition = PartnerPosition;
+            break;
+        case "Login":
+            targetPosition = PartnerPosition;
+            break;
+        default:
+            targetPosition = DefaultPosition;
+            break;
+    }
+
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
 
         if (earthRef.current && cloudsRef.current) {
+            earthRef.current.position.lerp(new THREE.Vector3(...targetPosition), 0.05);
+            cloudsRef.current.position.lerp(new THREE.Vector3(...targetPosition), 0.05);
+        }
+
+        if (earthRef.current) {
+            if (earthScale < 1) {
+                setEarthScale((prevScale) => Math.min(prevScale + 0.01, 1));
+            }
             earthRef.current.rotation.y = elapsedTime / 6;
+        }
+
+        if (cloudsRef.current) {
+            if (cloudsScale < 1) {
+                setCloudsScale((prevScale) => Math.min(prevScale + 0.01, 1));
+            }
             cloudsRef.current.rotation.y = elapsedTime / 6;
         }
     });
+
     return (
         <>
             <ambientLight intensity={0.4} />
@@ -107,7 +97,7 @@ const LandEarth: React.FC = (props) => {
                 saturation={0}
                 fade={true}
             />
-            <mesh ref={cloudsRef} position={[0, 0, 3]}>
+            <mesh ref={cloudsRef} scale={[cloudsScale, cloudsScale, cloudsScale]}>
                 <sphereGeometry args={[1.009, 32, 32]} />
                 <meshPhongMaterial
                     map={cloudsMap}
@@ -117,7 +107,7 @@ const LandEarth: React.FC = (props) => {
                     side={THREE.DoubleSide}
                 />
             </mesh>
-            <mesh ref={earthRef} position={[0, 0, 3]}>
+            <mesh ref={earthRef} scale={[earthScale, earthScale, earthScale]}>
                 <sphereGeometry args={[1, 32, 32]} />
                 <meshPhongMaterial specularMap={specularMap} />
                 <meshStandardMaterial
@@ -126,17 +116,9 @@ const LandEarth: React.FC = (props) => {
                     metalness={0.4}
                     roughness={0.7}
                 />
-                {/* <OrbitControls
-          enableZoom={true}
-          enablePan={true}
-          enableRotate={true}
-          zoomSpeed={0.6}
-          panSpeed={0.5}
-          rotateSpeed={0.4}
-        /> */}
             </mesh>
         </>
     );
-}
+};
 
 export default LandEarth;
