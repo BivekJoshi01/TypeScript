@@ -1,11 +1,12 @@
 import React from 'react';
+import Sanjeev from "../../assets/Office/sanjeev.jpg";
 
 const Partners = () => {
   const partners = [
-    { id: 1, name: 'Partner 1', image: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Partner 2', image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Partner 3', image: 'https://via.placeholder.com/150' },
-    { id: 4, name: 'Partner 4', image: 'https://via.placeholder.com/150' },
+    { id: 1, name: 'Sanjeev Shrestha', image: Sanjeev },
+    { id: 2, name: 'Madan Shrestha', image: Sanjeev},
+    { id: 3, name: 'Partner 3', image: Sanjeev },
+    { id: 4, name: 'Partner 4', image: Sanjeev },
   ];
 
   return (

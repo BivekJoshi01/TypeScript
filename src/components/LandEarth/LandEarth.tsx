@@ -7,21 +7,24 @@ import EarthCloudsMap from "../../assets/Office/textures/8k_earth_clouds.jpg";
 import EarthDayMap from "../../assets/Office/textures/8k_earth_daymap.jpg";
 import EarthNormalMap from "../../assets/Office/textures/8k_earth_normal_map.jpg";
 import EarthSpecularMap from "../../assets/Office/textures/8k_earth_specular_map.jpg";
+import Moon from "../../assets/Office/textures/Moon.png";
+
 import { TextureLoader } from "three";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 const LandEarth: React.FC = () => {
     const currentPage = useSelector((state: RootState) => state.navigation.currentPage);
-    console.log("Redux content:", currentPage);
 
     const [colorMap, normalMap, specularMap, cloudsMap] = useLoader(
         TextureLoader,
         [EarthDayMap, EarthNormalMap, EarthSpecularMap, EarthCloudsMap]
     );
+    const [moon]=useLoader(TextureLoader,[Moon])
 
     const earthRef = useRef<THREE.Mesh>(null);
     const cloudsRef = useRef<THREE.Mesh>(null);
+    const smallSphereRef = useRef<THREE.Mesh>(null);
 
     const [earthScale, setEarthScale] = useState(0.1);
     const [cloudsScale, setCloudsScale] = useState(0.1);
@@ -75,6 +78,19 @@ const LandEarth: React.FC = () => {
             }
             cloudsRef.current.rotation.y = elapsedTime / 6;
         }
+
+        // Make the small sphere orbit around the Earth
+        if (smallSphereRef.current && earthRef.current) {
+            const radius = 2; // Distance from Earth
+            const speed = 0.5; // Orbiting speed
+            const rotationSpeed = 0.2; 
+
+            smallSphereRef.current.position.x = earthRef.current.position.x + radius * Math.cos(elapsedTime * speed);
+            smallSphereRef.current.position.z = earthRef.current.position.z + radius * Math.sin(elapsedTime * speed);
+            smallSphereRef.current.position.y = earthRef.current.position.y + Math.sin(elapsedTime * 0.5); // Slight up-down motion
+
+            smallSphereRef.current.rotation.y += rotationSpeed * 0.1;
+        }
     });
 
     return (
@@ -97,6 +113,7 @@ const LandEarth: React.FC = () => {
                 saturation={0}
                 fade={true}
             />
+            {/* Clouds */}
             <mesh ref={cloudsRef} scale={[cloudsScale, cloudsScale, cloudsScale]}>
                 <sphereGeometry args={[1.009, 32, 32]} />
                 <meshPhongMaterial
@@ -107,6 +124,7 @@ const LandEarth: React.FC = () => {
                     side={THREE.DoubleSide}
                 />
             </mesh>
+            {/* Earth */}
             <mesh ref={earthRef} scale={[earthScale, earthScale, earthScale]}>
                 <sphereGeometry args={[1, 32, 32]} />
                 <meshPhongMaterial specularMap={specularMap} />
@@ -116,6 +134,10 @@ const LandEarth: React.FC = () => {
                     metalness={0.4}
                     roughness={0.7}
                 />
+            </mesh>
+            <mesh ref={smallSphereRef} scale={[0.6, 0.6, 0.6]}>
+                <sphereGeometry args={[0.2, 16, 16]} />
+                <meshStandardMaterial map={moon} />
             </mesh>
         </>
     );
