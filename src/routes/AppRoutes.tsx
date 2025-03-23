@@ -22,7 +22,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Admin routes */}
-        <Route element={<AdminPageLayout />}>
+        {/* <Route element={<AdminPageLayout />}>
           {MenuRoutesConfig?.map((headRoute, index) => {
             return (
               <Route key={index} path={headRoute.path} element={<headRoute.element />}>
@@ -40,7 +40,7 @@ const AppRoutes: React.FC = () => {
               </Route>
             );
           })}
-        </Route>
+        </Route> */}
       </Routes>
     </HashRouter>
   );
