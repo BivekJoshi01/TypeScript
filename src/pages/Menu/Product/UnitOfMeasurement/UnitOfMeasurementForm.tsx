@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UnitOfMeasurementForm = () => {
+const UnitOfMeasurementForm:React.FC = () => {
   return (
     <div>UnitOfMeasurementForm</div>
   )

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 
-const LoginPage = () => {
+const LoginPage:React.FC = () => {
   const navigate = useNavigate();
   
   return (

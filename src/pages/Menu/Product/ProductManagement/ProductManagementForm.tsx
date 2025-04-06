@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProductManagementForm = () => {
+const ProductManagementForm :React.FC= () => {
   return (
     <div>ProductManagementForm</div>
   )

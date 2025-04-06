@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Testimonials = () => {
+const Testimonials:React.FC = () => {
   return (
     <div>Testimonials</div>
   )

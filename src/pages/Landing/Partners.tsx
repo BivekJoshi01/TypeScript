@@ -1,7 +1,7 @@
 import React from 'react';
 import Sanjeev from "../../assets/Office/sanjeev.jpg";
 
-const Partners = () => {
+const Partners :React.FC= () => {
   const partners = [
     { id: 1, name: 'Sanjeev Shrestha', image: Sanjeev },
     { id: 2, name: 'Madan Shrestha', image: Sanjeev},

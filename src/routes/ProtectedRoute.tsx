@@ -1,6 +1,6 @@
 // ProtectedRoute.tsx
 import React from "react";
-import { Route, Navigate } from "react-router";
+import { Navigate } from "react-router";
 
 interface ProtectedRouteProps {
   element: React.ReactNode;

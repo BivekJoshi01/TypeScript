@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProductGroupForm = () => {
+const ProductGroupForm:React.FC = () => {
   return (
     <div>ProductGroupForm</div>
   )

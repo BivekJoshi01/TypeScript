@@ -135,7 +135,7 @@
 
 import React from 'react'
 
-const CustomTable = () => {
+const CustomTable :React.FC= () => {
   return (
     <div>CustomTable</div>
   )

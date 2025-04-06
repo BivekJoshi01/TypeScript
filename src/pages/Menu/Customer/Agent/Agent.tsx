@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Agent = () => {
+const Agent:React.FC = () => {
   return (
     <div>Agent</div>
   )
