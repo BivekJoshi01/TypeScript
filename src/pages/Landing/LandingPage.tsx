@@ -17,7 +17,7 @@ const LandingPage: React.FC = () => {
     (state: RootState) => state.navigation.currentPage
   );
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleNavigation = (page: string) => {
@@ -125,7 +125,7 @@ const LandingPage: React.FC = () => {
       <div className="lg:hidden absolute top-5 right-5 text-white">
         <button
           className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg"
-          onClick={() => setIsOpen(true)}
+          // onClick={() => setIsOpen(true)}
         >
           <FiMenu size={24} />
         </button>

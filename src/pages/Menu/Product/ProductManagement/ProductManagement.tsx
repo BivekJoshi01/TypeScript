@@ -16,7 +16,7 @@ const ProductManagement: React.FC = () => {
         openModel={openModel}
         setOpenModel={setOpenModel}
       >
-        <ProductManagementForm onClose={() => setOpenModel(false)} />
+        <ProductManagementForm/>
       </Header>
     </div>
   );

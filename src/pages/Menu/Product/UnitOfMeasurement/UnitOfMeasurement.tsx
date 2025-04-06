@@ -16,7 +16,7 @@ const UnitOfMeasurement: React.FC = () => {
         openModel={openModel}
         setOpenModel={setOpenModel}
       >
-        <UnitOfMeasurementForm onClose={() => setOpenModel(false)} />
+        <UnitOfMeasurementForm  />
       </Header>
     </div>
   );

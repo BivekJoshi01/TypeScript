@@ -1,6 +1,6 @@
 import React from 'react'
-import CustomTable from '../../../../components/CustomTable/CustomTable'
-import Header from '../../../../components/Header/Header'
+// import CustomTable from '../../../../components/CustomTable/CustomTable'
+// import Header from '../../../../components/Header/Header'
 
 const SupplierOtherParty: React.FC = () => {
   

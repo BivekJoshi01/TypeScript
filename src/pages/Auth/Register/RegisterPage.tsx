@@ -49,14 +49,11 @@ const RegisterPage: React.FC = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  // Use authentication mutation
-  const { mutate, isLoading, isError, error } = useAuthHook();
+  const { mutate, isError, error } = useAuthHook();
 
-  // Form submission handler
   const onSubmit = (data: LoginFormData) => {
     console.log("Form Data:", data);
-    
-    // Call the API mutation
+
     mutate(
       { formData: data },
       {
@@ -71,7 +68,10 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 md:grid-cols-3">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid grid-cols-2 md:grid-cols-3"
+    >
       {inputFields.map((field, index) => (
         <div key={index} className={`w-full ${field.gridClass} py-1 px-3`}>
           <RenderInput
@@ -82,7 +82,9 @@ const RegisterPage: React.FC = () => {
             required={field.required}
             register={register}
             error={
-              errors[field.name as keyof LoginFormData] as FieldError | undefined
+              errors[field.name as keyof LoginFormData] as
+                | FieldError
+                | undefined
             }
           />
         </div>
@@ -91,12 +93,17 @@ const RegisterPage: React.FC = () => {
         <button
           type="submit"
           className="w-full p-2 bg-blue-500 text-white rounded-lg"
-          disabled={isLoading}
+          // disabled={isLoading}
         >
-          {isLoading ? "Submitting..." : "Submit"}
+          {/* {isLoading ? "Submitting..." : "Submit"} */}
+          Submit
         </button>
       </div>
-      {isError && <p className="text-red-500 mt-2">{error?.message}</p>}
+
+      {/* ✅ Safe error handling using type guard */}
+      {isError && error instanceof Error && (
+        <p className="text-red-500 mt-2">{error.message}</p>
+      )}
     </form>
   );
 };

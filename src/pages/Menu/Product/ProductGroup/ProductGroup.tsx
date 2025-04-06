@@ -17,7 +17,7 @@ const ProductGroup: React.FC = () => {
         openModel={openModel}
         setOpenModel={setOpenModel}
       >
-        <ProductGroupForm onClose={() => setOpenModel(false)} />
+        <ProductGroupForm />
       </Header>
       {/* <PopoverCustom/> */}
     </div>

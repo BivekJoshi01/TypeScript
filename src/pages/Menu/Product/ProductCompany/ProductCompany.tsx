@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../../../../components/Header/Header";
 import ProductCompantForm from "./ProductCompantForm";
 import { FiPlus } from "react-icons/fi";
-import CustomTable from "../../../../components/CustomTable/CustomTable";
+// import CustomTable from "../../../../components/CustomTable/CustomTable";
 
 const ProductCompany: React.FC = () => {
   const [openModel, setOpenModel] = useState(false);
