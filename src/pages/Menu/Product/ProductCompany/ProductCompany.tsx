@@ -21,7 +21,7 @@ const ProductCompany: React.FC = () => {
           <ProductCompantForm onClose={() => setOpenModel(false)} />
         </Header>
       </div>
-      <CustomTable columns={[]} data={[]}/>
+      {/* <CustomTable columns={[]} data={[]}/> */}
     </>
   );
 };

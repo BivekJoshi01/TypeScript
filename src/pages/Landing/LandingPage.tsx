@@ -9,111 +9,140 @@ import LoginPage from "../Auth/Login/LoginPage";
 import Products from "./Products";
 import Partners from "./Partners";
 import Testimonials from "./Testimonials";
+import Popover from "@mui/material/Popover";
 
 const LandingPage: React.FC = () => {
-    const dispatch = useDispatch();
-    const currentPage = useSelector(
-        (state: RootState) => state.navigation.currentPage
-    );
+  const dispatch = useDispatch();
+  const currentPage = useSelector(
+    (state: RootState) => state.navigation.currentPage
+  );
 
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-    const handleNavigation = (page: string) => {
-        dispatch(setCurrentPage(page));
-    };
+  const handleNavigation = (page: string) => {
+    dispatch(setCurrentPage(page));
+  };
 
-    const renderPageContent = () => {
-        switch (currentPage) {
-            case "About Us":
-                return <AboutUs />;
-            case "Products":
-                return <Products />;
-            case "Partners":
-                return <Partners />;
-            case "Testimonials":
-                return <Testimonials />;
-            case "Login":
-                return <LoginPage />;
-            case "Home":
-            default:
-                return (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                        <h1 className="text-white text-6xl font-extrabold tracking-wide drop-shadow-lg">
-                            Universal Stationery Suppliers
-                        </h1>
-                        <p className="text-gray-300 text-xl mt-3 font-medium">
-                            Your one-stop wholesale destination
-                        </p>
-                        <p className="text-gray-300 text-xl mt-3 font-medium">
-                            The Only Place Where Buying in Bulk Feels Like a Steal!
-                        </p>
-                        <p className="text-gray-300 text-xl mt-3 font-medium">
-                            Balambu || Kathmandu
-                        </p>
-                        <button className="mt-6 px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-full shadow-lg hover:bg-blue-500 transition-all duration-300">
-                            Scale with Us!
-                        </button>
-                    </div>
-                );
-        }
-    };
+  const handleOpenMap = (event: React.MouseEvent<HTMLParagraphElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    return (
-        <LandingLayout>
-            {/* Centered Main Content */}
-            {renderPageContent()}
+  const handleCloseMap = () => {
+    setAnchorEl(null);
+  };
 
-            {/* Right Top Menu - Hidden in Mobile */}
-            <div className="hidden lg:flex absolute top-5 right-5 text-white space-x-4">
-                {["Home", "About Us", "Products", "Partners", "Testimonials"].map((item) => (
-                    <p
-                        key={item}
-                        className="cursor-pointer px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg text-sm"
-                        onClick={() => handleNavigation(item)}
-                    >
-                        {item}
-                    </p>
-                ))}
-            </div>
+  const open = Boolean(anchorEl);
+  const id = open ? "map-popover" : undefined;
 
-            {/* Mobile View - Burger Menu */}
-            <div className="lg:hidden absolute top-5 right-5 text-white">
-                <button
-                    className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg"
-                    onClick={() => setIsOpen(true)}
-                >
-                    <FiMenu size={24} />
-                </button>
-            </div>
+  const renderPageContent = () => {
+    switch (currentPage) {
+      case "About Us":
+        return <AboutUs />;
+      case "Products":
+        return <Products />;
+      case "Partners":
+        return <Partners />;
+      case "Testimonials":
+        return <Testimonials />;
+      case "Login":
+        return <LoginPage />;
+      case "Home":
+      default:
+        return (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+            <h1 className="text-white text-6xl font-extrabold tracking-wide drop-shadow-lg">
+              Universal Stationery Suppliers
+            </h1>
+            <p className="text-gray-300 text-xl mt-3 font-medium">
+              Your one-stop wholesale destination
+            </p>
+            <p className="text-gray-300 text-xl mt-3 font-medium">
+              The Only Place Where Buying in Bulk Feels Like a Steal!
+            </p>
+            <p
+              className="text-gray-300 text-xl mt-3 font-medium cursor-pointer hover:underline"
+              onClick={handleOpenMap}
+            >
+              Balambu || Kathmandu
+            </p>
+            <button className="mt-6 px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-full shadow-lg hover:bg-blue-500 transition-all duration-300">
+              Scale with Us!
+            </button>
 
-            {/* Mobile Drawer/Menu Dialog */}
-            {/* <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 bg-black bg-opacity-50" />
-                <div className="fixed inset-0 flex items-center justify-center">
-                    <div className="bg-gray-900 text-white p-6 rounded-lg shadow-xl w-64">
-                        <button className="absolute top-3 right-3 text-white" onClick={() => setIsOpen(false)}>
-                            ✖
-                        </button>
-                        <p className="cursor-pointer py-2 border-b border-gray-700">About Us</p>
-                        <p className="cursor-pointer py-2 border-b border-gray-700">Products</p>
-                        <p className="cursor-pointer py-2 border-b border-gray-700">Partners</p>
-                        <p className="cursor-pointer py-2">Testimonials</p>
-                    </div>
-                </div>
-            </Dialog> */}
+            {/* Popover for Map */}
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleCloseMap}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              <div className="w-100 h-60">
+                <iframe
+                  title="Balambu Map"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.6040037058942!2d81.91739709573305!3d28.55162009538097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb23007b896d9b%3A0xaae7e073014fbd1b!2sUniversal%20Stationary%20Suppliers!5e0!3m2!1sen!2snp!4v1742918124348!5m2!1sen!2snp"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </Popover>
+          </div>
+        );
+    }
+  };
 
-            {/* Bottom Right - Login & Powered By */}
-            <div className="absolute bottom-5 right-5 text-white text-right">
-                <button
-                    className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg"
-                    onClick={() => handleNavigation("Login")}
-                >
-                    <FiLogIn size={24} />
-                </button>
-                <p className="text-sm mt-2 text-gray-400">Powered By: Bivek Joshi</p>
-            </div>
-        </LandingLayout>
-    );
+  return (
+    <LandingLayout>
+      {/* Centered Main Content */}
+      {renderPageContent()}
+
+      {/* Right Top Menu - Hidden in Mobile */}
+      <div className="hidden lg:flex absolute top-5 right-5 text-white space-x-4">
+        {["Home", "About Us", "Products", "Partners", "Testimonials"].map(
+          (item) => (
+            <p
+              key={item}
+              className="cursor-pointer px-4 py-2 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg text-sm"
+              onClick={() => handleNavigation(item)}
+            >
+              {item}
+            </p>
+          )
+        )}
+      </div>
+
+      {/* Mobile View - Burger Menu */}
+      <div className="lg:hidden absolute top-5 right-5 text-white">
+        <button
+          className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg"
+          onClick={() => setIsOpen(true)}
+        >
+          <FiMenu size={24} />
+        </button>
+      </div>
+
+      {/* Bottom Right - Login & Powered By */}
+      <div className="absolute bottom-5 right-5 text-white text-right">
+        <button
+          className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg"
+          onClick={() => handleNavigation("Login")}
+        >
+          <FiLogIn size={24} />
+        </button>
+        <p className="text-sm mt-2 text-gray-400">Powered By: Bivek Joshi</p>
+      </div>
+    </LandingLayout>
+  );
 };
 
 export default LandingPage;

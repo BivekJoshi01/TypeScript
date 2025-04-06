@@ -20,7 +20,7 @@ const LandEarth: React.FC = () => {
         TextureLoader,
         [EarthDayMap, EarthNormalMap, EarthSpecularMap, EarthCloudsMap]
     );
-    const [moon]=useLoader(TextureLoader,[Moon])
+    const [moon] = useLoader(TextureLoader, [Moon])
 
     const earthRef = useRef<THREE.Mesh>(null);
     const cloudsRef = useRef<THREE.Mesh>(null);
@@ -31,8 +31,8 @@ const LandEarth: React.FC = () => {
 
     const AboutUsPosition: [number, number, number] = [-1.6, 0, 4.3];
     const DefaultPosition: [number, number, number] = [0, 0, 3];
-    const ProductPosition: [number, number, number] = [1.6, 0, 4.3];
-    const PartnerPosition: [number, number, number] = [0, 0, 4];
+    const ProductPosition: [number, number, number] = [0, 0, 4];
+    const PartnerPosition: [number, number, number] = [1.6, 0, 4.3];
 
     let targetPosition: [number, number, number];
 
@@ -50,7 +50,7 @@ const LandEarth: React.FC = () => {
             targetPosition = PartnerPosition;
             break;
         case "Login":
-            targetPosition = PartnerPosition;
+            targetPosition = ProductPosition;
             break;
         default:
             targetPosition = DefaultPosition;
@@ -83,7 +83,7 @@ const LandEarth: React.FC = () => {
         if (smallSphereRef.current && earthRef.current) {
             const radius = 2; // Distance from Earth
             const speed = 0.5; // Orbiting speed
-            const rotationSpeed = 0.2; 
+            const rotationSpeed = 0.2;
 
             smallSphereRef.current.position.x = earthRef.current.position.x + radius * Math.cos(elapsedTime * speed);
             smallSphereRef.current.position.z = earthRef.current.position.z + radius * Math.sin(elapsedTime * speed);

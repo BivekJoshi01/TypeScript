@@ -5,7 +5,8 @@ import Header from '../../../../components/Header/Header'
 const SupplierOtherParty: React.FC = () => {
   
   return (
-    <div><Header /><CustomTable data={[]} columns={[]} /></div>
+    // <div><Header /><CustomTable data={[]} columns={[]} /></div>
+    <div></div>
   )
 }
 

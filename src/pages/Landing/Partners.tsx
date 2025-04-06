@@ -5,8 +5,8 @@ const Partners = () => {
   const partners = [
     { id: 1, name: 'Sanjeev Shrestha', image: Sanjeev },
     { id: 2, name: 'Madan Shrestha', image: Sanjeev},
-    { id: 3, name: 'Partner 3', image: Sanjeev },
-    { id: 4, name: 'Partner 4', image: Sanjeev },
+    { id: 3, name: 'Laxmi Krisha Maharjan', image: Sanjeev },
+    { id: 4, name: 'Bikash Shrestha', image: Sanjeev },
   ];
 
   return (
