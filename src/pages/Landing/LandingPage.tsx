@@ -19,6 +19,8 @@ const LandingPage: React.FC = () => {
 
   // const [isOpen, setIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
 
   const handleNavigation = (page: string) => {
     dispatch(setCurrentPage(page));
@@ -122,14 +124,34 @@ const LandingPage: React.FC = () => {
       </div>
 
       {/* Mobile View - Burger Menu */}
-      <div className="lg:hidden absolute top-5 right-5 text-white">
+      <div className="lg:hidden absolute top-5 right-5 text-white z-50">
         <button
           className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 shadow-lg"
-          // onClick={() => setIsOpen(true)}
+          onClick={() => setIsOpen((prev) => !prev)}
         >
           <FiMenu size={24} />
         </button>
+
+        {isOpen && (
+          <div className="mt-2 bg-gray-900 rounded-lg shadow-lg w-48 absolute right-0">
+            {["Home", "About Us", "Products", "Partners", "Testimonials"].map(
+              (item) => (
+                <p
+                  key={item}
+                  className="px-4 py-2 text-sm hover:bg-gray-700 cursor-pointer"
+                  onClick={() => {
+                    handleNavigation(item);
+                    setIsOpen(false);
+                  }}
+                >
+                  {item}
+                </p>
+              )
+            )}
+          </div>
+        )}
       </div>
+
 
       {/* Bottom Right - Login & Powered By */}
       <div className="absolute bottom-5 right-5 text-white text-right">
